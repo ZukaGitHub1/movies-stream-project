@@ -30,7 +30,7 @@ const Scrollfunction = ({children}) => {
   
     return (
       <button disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
-        <BsArrowLeft color='blue' fontSize='2em' />
+        <BsArrowLeft color='blue'  fontSize='2em' />
       </button>
       
     );

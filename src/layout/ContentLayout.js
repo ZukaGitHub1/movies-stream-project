@@ -2,10 +2,12 @@ import React from 'react'
 import Movienavbar from '../components/navbar/Movienavbar'
 
 
-const ContentLayout = ({props, children}) => {
+
+const ContentLayout = ({ children}) => {
   return (
-    <div >
-      <Movienavbar  changeGenre={props}/>
+    <div>
+   
+      <Movienavbar  />
   
       {children}
      

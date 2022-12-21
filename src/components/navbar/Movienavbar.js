@@ -1,30 +1,48 @@
 import React from "react";
-import "./Movienavbar.scss";
+import "../../styles/Movienavbar.scss";
 import { useMovieFetch } from "../../hook";
 import { Link } from "react-router-dom";
 import Scrollfunction from "../../components/scrollmenu/Scrollfunction";
-const Movienavbar = ({changeGenre}) => {
+import { selectLanguage } from "../../redux/action/languages";
+import { connect } from "react-redux";
+import { useContext } from "react";
+import movietvContext from "../../context/movietvContext";
 
+
+const Movienavbar = ({  languages }) => {
+  const {   
+    genrelang
+   } = languages;
+
+   const genreChange = useContext(movietvContext)
+     console.log(genrelang)
   const { response } = useMovieFetch(
-    `https://api.themoviedb.org/3/genre/${changeGenre ? 'movie' : 'tv' }/list?api_key=24d5a152341e66c347af6137f7385595&language=en-US`
+    `https://api.themoviedb.org/3/genre/${genreChange}/list?api_key=24d5a152341e66c347af6137f7385595&language=${genrelang}`
   );
  
   return (
     <div className="genre-scroll">
     <Scrollfunction>
-        <ul className="menu-bar  font-cinzel"> 
+     
          
-          {({changeGenre}) && response &&
-            response.genres.map((index) => (
-              <Link to={index.to}>
-                <li key={index.id}>{index.name}</li>
-              </Link>
+          {({genreChange}) && response &&
+            response.genres.map((index) => (  
+               <ul key={index.id} className="menu-bar  font-cinzel"> 
+              <Link to={index.to} >
+                <li >{index.name}</li>
+              </Link> 
+              </ul>
             ))}
-            
-        </ul>
-      </Scrollfunction>
+             
+       
+     </Scrollfunction>
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  languages: state.Languages,
+});
 
-export default Movienavbar;
+
+export default connect(mapStateToProps, { selectLanguage ,})(Movienavbar);
+

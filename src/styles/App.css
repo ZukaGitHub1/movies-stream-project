@@ -2,13 +2,15 @@ body,html {
     width: 100%;
     height:100%;   
     overflow-x:hidden;
+    text-decoration: none;
   }
   .App{
-      background: url("./images/appmainpage.jpg") center / cover no-repeat;
-
+      background: url("../assets/wallpaperflare.com_wallpaper\ \(2\).jpg") center / cover no-repeat;
       background-attachment: fixed;
       background-size: cover;
       background-repeat: no-repeat;
+      -webkit-backdrop-filter: blur(10px);
+       backdrop-filter: blur(10px); 
       display: block;
        margin:0;
        padding: 0; 
@@ -17,7 +19,7 @@ body,html {
 
 
 
-
+/* mob-movi */
   @media screen and ( max-width:1200px){
     .mob-movie-div{
       display: grid;

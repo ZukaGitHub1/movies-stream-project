@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './pagination.scss';
+import '../../styles/pagination.scss';
 
 
 const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
