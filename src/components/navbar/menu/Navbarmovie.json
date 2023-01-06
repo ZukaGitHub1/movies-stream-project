@@ -1,6 +1,0 @@
- [ 
-  {"id" : 1, "name": "Home", "to":"/", "current": true },
-  {"id" : 2, "name": "Movies", "to": "/allmovie", "current": false },
-  {"id" : 3, "name": "TV serials", "to": "/tvserials", "current": false },
-  {"id" : 4, "name": "Tv Shows", "to": "#", "current": false }
-]

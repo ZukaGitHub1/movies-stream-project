@@ -10,13 +10,13 @@ import Slidecontent from "../slidshowcontent/Slidecontent";
 
 
 const Content = ({languages}) => {
-     
+    document.title = "Home | HERO MOVIES"
   return (
     <div className="Movie-card-div  bg-stone-900">
      <Slidecontent lang={languages}/>
     <div className="font-raleway mt-5 py-4 gap-20" >
       <Newmoviescroll  lang={languages}/>
-      <Newtvserialscroll  lang={languages}/>
+      {/* <Newtvserialscroll  lang={languages}/> */}
       <Nowplaying lang={languages}/>
       <TrendingMovie lang={languages} />
     </div>

@@ -13,27 +13,29 @@ import {MovieContext} from "../../context/MovieTvchangeContext"
 
 
 
-const SingleIdPage = () => {
+const SingleIdPage = ({languages}) => {
+
+  const {movielang} = languages
   const [movieId, setMovieId] = useState([]);
   const { id } = useParams();
  
   const { moviename } = useContext(MovieContext);
-  console.log(moviename)
+  
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/${moviename}/${id}?api_key=24d5a152341e66c347af6137f7385595&language=en-US`
+        `https://api.themoviedb.org/3/${moviename}/${id}?api_key=24d5a152341e66c347af6137f7385595&language=${movielang}`
       )
       .then((response) => {
         setMovieId(response.data);
       });
-  }, [id, moviename]);
+  }, [id, moviename, movielang]);
   
   console.log(movieId);
 
   return (
     <div>
-      <SingleidPageDesign list={movieId} />
+      <SingleidPageDesign list={movieId}  />
     </div>
   );
 };

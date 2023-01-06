@@ -1,62 +1,71 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
 import ContentcardDesign from "../../components/body/content/ContentcardDesign";
-import ReactPaginate from "react-paginate";
-import "../../styles/pagination.scss";
-import ContentLayout from "../../layout/ContentLayout";
-import { useMovieFetch } from "../../hook";
+import Loading from "../../components/loading/Loading";
 import movietvContext from "../../context/movietvContext";
 import { MovieContext } from "../../context/MovieTvchangeContext";
-import { useContext } from "react";
-import { useEffect } from "react";
+import useScrollPagination from "../../hook/useScrollPagination";
+import axios from "axios";
+import Movienavbar from "../../components/navbar/Movienavbar";
 
 
 
- 
+
+
 const Allmovie = () => {
-  const navigate = useNavigate();
-  const [moviegenre, setMoviegenre] = useState('movie');
-  const [movietv, setMovietv] = useState('movie');
-  const [pageCount, setPageCount] = useState(1);
-  const [currentPage, setcurrentPage] = useState(1);
-  const { page } = useParams();
-     
-  const { setMoviename} = useContext(MovieContext);
+  const [moviegenre] = useState("movie");
+  const [movietv] = useState("movie");
+  const { setMoviename } = useContext(MovieContext);
+  const [currPage, setCurrPage] = useState(1);
+  const [isFetching, setIsFetching] = useScrollPagination(fetchdata);
+  const [filtered, setFiltered] = useState([]);
+  const [activeGenre, setActiveGenre] = useState(0);
+  
+  document.title = "Movie | HERO MOVIES"
+  const url = `${process.env.REACT_APP_MOVIES_PRODUCT_API}&language=en-US&page=`;
+
+  function fetchdata() {
+   const res =   setTimeout(() => {
+      axios.get(`${url}${currPage}`).then((res) => {
+        setCurrPage((curr) => curr + 1);
+        setIsFetching(false);
+        setFiltered([...filtered, ...res.data.results]);
+      });
+
+    }, 400);
+
+  }
+
+
 
   useEffect(() => {
-   setMoviename(movietv)
-  }, [setMoviename, movietv])
-  
-  const handlePageChange = (selectedObject) => {
-    setcurrentPage(selectedObject.selected);
-    navigate(`${currentPage}`);
-  };
-  const { response } = useMovieFetch(
-    `${process.env.REACT_APP_MOVIES_PRODUCT_API}&language=en-US&page=${page}`
-  );
-      
+    setMoviename(movietv);
+    fetchdata();
+
+    
+  }, [setMoviename, movietv]);
+ 
+
   return (
-    <div>
-    <movietvContext.Provider value={moviegenre} >
-      <ContentLayout >
-        <div className="grid grid-cols-4 gap-5 p-5 py-10  mob-movie-div">
-          {response &&
-            response.results.map((index) => <div key={index.id}><ContentcardDesign list={index} /></div>)}
+    <div  id="movie-div-scroll" className="movie-bg-color" >
+      <movietvContext.Provider value={moviegenre}>
+        <Movienavbar
+          setIsFetching={setIsFetching}
+          setFiltered={setFiltered}
+          activeGenre={activeGenre}
+          setActiveGenre={setActiveGenre}
+          popular={filtered}
+        />
+       
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 p-2   mob-movie-div">
+          {filtered.map((index, value) => (
+            <div key={value}>
+              <ContentcardDesign list={index} />
+            </div>
+          ))}
         </div>
-      </ContentLayout>
-      {/* <ReactPaginate
-					pageCount={response && response.total_pages}
-					pageRange={page}
-					onPageChange={handlePageChange}
-					containerClassName={'container'}
-					previousLinkClassName={'page'}
-					breakClassName={'page'}
-					nextLinkClassName={'page'}
-					pageClassName={'page'}
-					disabledClassName={'disabled'}
-					activeClassName={'active'}
-				/> */}
-        </movietvContext.Provider>
+        {isFetching && <Loading />}
+
+      </movietvContext.Provider>
     </div>
   );
 };

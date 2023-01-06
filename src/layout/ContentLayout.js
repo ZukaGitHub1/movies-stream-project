@@ -1,19 +1,13 @@
-import React from 'react'
-import Movienavbar from '../components/navbar/Movienavbar'
+import React from "react";
+import Movienavbar from "../components/navbar/Movienavbar";
 
-
-
-const ContentLayout = ({ children}) => {
+const ContentLayout = ({ children }) => {
   return (
     <div>
-   
-      <Movienavbar  />
-  
+      <Movienavbar />
       {children}
-     
     </div>
-  )
-}
+  );
+};
 
-export default ContentLayout
-
+export default ContentLayout;

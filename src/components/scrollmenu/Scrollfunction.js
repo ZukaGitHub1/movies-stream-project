@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
-import  './scrollmenu.css'
+import  '../../styles/scrollmenu.css'
 import {BsArrowLeft, BsArrowRight} from 'react-icons/bs'
 const Scrollfunction = ({children}) => {
   const [selected, setSelected] = React.useState([]);
@@ -30,7 +30,7 @@ const Scrollfunction = ({children}) => {
   
     return (
       <button disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
-        <BsArrowLeft color='blue'  fontSize='2em' />
+        <BsArrowLeft color='#708090'  fontSize='2em' />
       </button>
       
     );
@@ -40,7 +40,7 @@ const Scrollfunction = ({children}) => {
   
     return (
       <button disabled={isLastItemVisible} onClick={() => scrollNext()}>
-        <BsArrowRight color='blue' fontSize='2em' />
+        <BsArrowRight color='#708090' fontSize='2em' />
       </button>
     );
   }

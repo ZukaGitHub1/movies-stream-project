@@ -17,24 +17,26 @@ import { persister, store } from "./redux/store";
 function App() {
   return (
     <div className="App">
+     
       <Provider store={store}>
         <PersistGate loading={"loading..."} persistor={persister}>
-        
           <Fragment>
           <MovieProvider>
             <Routes>
               <Route path="/" element={<Home />}>
                 <Route index element={<Content />} />
-                <Route path="/allmovie" element={<Allmovie />} />
-                <Route path="/tvserials" element={<TVserials />} />
+                <Route path="/allmovie" element={<Allmovie />} >
+                  <Route path=":genre" element/>
+                </Route>
+                <Route path="/tvserials" element={<TVserials />} >
+                <Route path=":genre" element/>
+                </Route>
                 <Route path="/php_movie/:id" element={<SingleIdPage />} />
               </Route>
-
               <Route path="*" element={<Pagenotfound />} />
             </Routes>
-              </MovieProvider>
+           </MovieProvider>
           </Fragment>
-        
         </PersistGate>
       </Provider>
     </div>

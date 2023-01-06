@@ -4,10 +4,10 @@ import { useState, createContext, useMemo } from 'react';
 const MovieContext = createContext(); 
 
 const MovieProvider = ({children}) => {
-    const userInitialState = localStorage.getItem("movie") || "tv"  ;
+    const userInitialState = localStorage.getItem("movie") || localStorage.getItem("tv")   ;
     const [moviename, setMoviename] = useState(userInitialState);
     useEffect(() => {
-        localStorage.setItem("movie",moviename);
+        localStorage.setItem("movie", moviename);
       }, [moviename]);
 
 const value = useMemo(

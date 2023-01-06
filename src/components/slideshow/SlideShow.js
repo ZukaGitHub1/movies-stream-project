@@ -20,7 +20,7 @@ function SlideShow() {
   
   return (
     <div>
-      <Carousel nextIcon={<FcNext fontSize={"50px"}/>} prevIcon={<FcPrevious fontSize={"50px"}/>}  indicators={false} activeIndex={index} onSelect={handleSelect}>
+      <Carousel nextIcon={false} prevIcon={false} interval={3000}  indicators={false} activeIndex={index} onSelect={handleSelect}>
         {response &&
           response.results.map((index) => (
            
